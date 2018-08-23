@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { handleAddTweet } from '../actions/tweets'
 
 class NewTweet extends Component {
 	state = {
@@ -17,12 +19,9 @@ class NewTweet extends Component {
 		e.preventDefault()
 
 		const { text } = this.state
+		const { dispatch, id } = this.props
 
-		const tweetLeft = 280 - text.length
-
-		// todo: Add tweet to store
-
-		console.log('New tweet: ', text)
+		dispatch(handleAddTweet(text, id))
 
 		this.setState(() => ({
 			text: ''
@@ -31,9 +30,6 @@ class NewTweet extends Component {
 
 	render() {
 		const { text } = this.state
-
-		{/* todo: Redirect to / if submitted */}
-
 		const tweetLeft = 280 - text.length
 
 		return (
@@ -61,4 +57,4 @@ class NewTweet extends Component {
 	}
 }
 
-export default NewTweet
+export default connect()(NewTweet)
